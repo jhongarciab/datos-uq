@@ -9,3 +9,8 @@
 - Decisión: En W02 usar validaciones explícitas de completitud (`COUNT(*)` vs `COUNT(col)`) antes de interpretar resultados científicos.
 - Razón: Evitar conclusiones sesgadas por nulos silenciosos en atributos clave.
 - Evidencia: `docs/w02a_sql_practice.md`, sección 5.
+
+- Fecha: 2026-02-20
+- Decisión: Validar cardinalidad (`COUNT(*)` antes/después del JOIN y chequeo de llaves duplicadas) antes de promover una tabla como dimensión.
+- Razón: Evitar inflación silenciosa de filas al unir facts con dimensiones mal construidas.
+- Evidencia: `docs/w03_sql_practice.md` (análisis `dim_host_bad`) y `docs/w03_join_case.md`.
