@@ -1,6 +1,6 @@
 # W03 — SQL esencial II (JOINs + CTEs)
 
-Fecha: 2026-02-20
+Fecha: 2026-02-18
 
 ## Análisis de `dim_host_bad`
 

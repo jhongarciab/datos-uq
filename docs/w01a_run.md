@@ -1,6 +1,6 @@
 # W01A — Evidencia de ejecución
 
-Fecha: 2026-02-20
+Fecha: 2026-02-18
 
 ## Entorno
 - Procesamiento local con Python

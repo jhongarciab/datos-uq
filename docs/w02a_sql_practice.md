@@ -1,6 +1,6 @@
 # W02A — SQL practice (W02)
 
-Fecha: 2026-02-20
+Fecha: 2026-02-18
 
 ## 1) Planetas por año (top 15)
 
