@@ -1,7 +1,7 @@
-# datos-uq
+# Física Computacional: Ingeniería de Datos I
 
-Repositorio del equipo para los entregables y ejercicios de Ingeniería de Datos.
-
-**Estudiantes:**
+### Estudiantes:
 - Jhon García
-- Manuela Rios
+- Manuela Ríos
+---
+Repositorio del equipo para los entregables y ejercicios de Ingeniería de Datos del programa de Física
