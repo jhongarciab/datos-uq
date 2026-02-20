@@ -1,0 +1,12 @@
+discoverymethod,n_planets,avg_pl_rade,avg_pl_bmasse
+Transit,4487,4.365,123.769
+Radial Velocity,1161,9.792,1039.835
+Microlensing,265,9.86,800.545
+Imaging,86,13.446,4498.628
+Transit Timing Variations,39,6.493,484.399
+Eclipse Timing Variations,17,12.893,2102.722
+Orbital Brightness Modulation,9,9.645,350.324
+Pulsar Timing,8,5.411,278.156
+Astrometry,6,12.45,4673.61
+Pulsation Timing Variations,2,12.75,2383.725
+Disk Kinematics,1,13.3,794.575

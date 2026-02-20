@@ -14,3 +14,13 @@
 - Decisión: Validar cardinalidad (`COUNT(*)` antes/después del JOIN y chequeo de llaves duplicadas) antes de promover una tabla como dimensión.
 - Razón: Evitar inflación silenciosa de filas al unir facts con dimensiones mal construidas.
 - Evidencia: `docs/w03_sql_practice.md` (análisis `dim_host_bad`) y `docs/w03_join_case.md`.
+
+- Fecha: 2026-02-23
+- Decisión: Para W04A seleccioné 12 columnas que cubren identificación, temporalidad, orbitales y parámetros estelares para el control de nulos.
+- Razón: Esta combinación captura los campos más usados en agregaciones y JOINs de W02–W04 sin inflar el costo de chequeo.
+- Evidencia: `docs/w03a_quality_report.md` (tabla de nulos en 12 columnas).
+
+- Fecha: 2026-02-23
+- Decisión: En Silver apliqué reglas mínimas (`pl_name`/`hostname` no nulos, rango de `disc_year`, límites físicos básicos en `pl_rade` y `pl_bmasse`) antes de construir fact y dimensiones.
+- Razón: Evitar inconsistencias tempranas y asegurar JOINs sanos (`n_fact ≈ n_join`).
+- Evidencia: `docs/w03b_silver_report.md` y `docs/data_contract_silver_v1.json`.
