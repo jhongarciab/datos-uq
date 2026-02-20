@@ -1,0 +1,31 @@
+{
+  "dataset": "nasa_exoplanets_pscomppars",
+  "version": "1.0.0",
+  "date": "2026-02-23",
+  "silver_table": "silver_planet",
+  "gold_views": [
+    "gold_by_method",
+    "gold_by_host"
+  ],
+  "grain": "1 fila por planeta (pl_name) en fact_planet",
+  "required_columns": [
+    "pl_name",
+    "hostname"
+  ],
+  "quality_rules": {
+    "disc_year_range": [
+      1980,
+      2026
+    ],
+    "pl_rade": "null OR (0,30]",
+    "pl_bmasse": "null OR >0"
+  },
+  "keys": {
+    "fact_planet": [
+      "pl_name"
+    ],
+    "dim_host_full": [
+      "hostname"
+    ]
+  }
+}

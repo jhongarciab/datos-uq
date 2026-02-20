@@ -1,0 +1,4 @@
+check_name,metric_value,threshold,status
+nulls_pl_name,0,0,PASS
+nulls_hostname,0,0,PASS
+disc_year_out_of_range,0,0,PASS
