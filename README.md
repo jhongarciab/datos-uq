@@ -1,8 +1,7 @@
 # Física Computacional: Ingeniería de Datos I
 
-### Estudiantes:
+### Estudiante:
 - Jhon García
-- Manuela Ríos
 ---
 
 ## Resumen de la evolución
