@@ -11,7 +11,8 @@ W02 → Validación explícita de completitud y nulos
 W03 → Control de cardinalidad y JOINs seguros  
 W04 → Reglas mínimas Silver y control de calidad  
 W04A → Optimización de consultas (EXPLAIN y performance)  
-W05 → Modelo dimensional + salidas Gold
+W05 → Modelo dimensional + salidas Gold  
+W06B → Runner secuencial con métricas por etapa, run log y comparación entre corridas
 
 Ver: [Decision Log](docs/decisions_log.md)
 
@@ -24,7 +25,9 @@ datos-uq/
 │   ├── w04a_explain_q1.txt        # Análisis de performance
 │   ├── gold_by_discoverymethod.csv
 │   ├── gold_by_host.csv
-│   └── gold_by_method_*.csv
+│   ├── gold_by_method_*.csv
+│   ├── w06b_run_report.json       # Reporte de ejecución del runner por etapas
+│   └── w06b_stage_timings.csv     # Tiempos por etapa y por corrida
 │
 ├── data/
 │   └── raw/
@@ -44,7 +47,8 @@ datos-uq/
 │   ├── w03b_silver_report.md
 │   ├── w04a_perf_report.md
 │   ├── w05a_evidence.md
-│   └── w05b_gold_report.md
+│   ├── w05b_gold_report.md
+│   └── w06b_run_log.md
 │
 ├── .gitignore
 └── README.md     

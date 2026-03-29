@@ -45,4 +45,10 @@
 - Evidencia: `docs/w05a_evidence.md` (unicidad y orphan_rows=0).
 - Decisión: Publicar dos salidas Gold (`gold_by_discoverymethod` y `gold_by_host`) como productos mínimos de consumo analítico.
 - Razón: Cubrir vistas complementarias (método de descubrimiento y arquitectura por sistema) para análisis rápido y reproducible.
-- Evidencia: `docs/w05b_gold_report.md` + CSV en `artifacts/`.
+- Evidencia: `docs/w05b_gold_report.md` + CSV en `artifacts/`.---
+
+### W06B
+- Fecha: 2026-03-29
+- Decisión: Mantener un runner secuencial en cuatro etapas (`silver`, `dims`, `gold`, `export`) y usar como umbral operativo que la etapa `dims` permanezca por debajo de `0.03s` en este dataset.
+- Razón: `dims` concentra el mayor costo del flujo porque reconstruye dimensiones, facts y la tabla con surrogate key; fijar un umbral simple permite detectar rápido degradaciones de performance sin complicar el entregable.
+- Evidencia: `artifacts/w06b_stage_timings.csv` (run1 `dims=0.0202s`, run2 `dims=0.0194s`) y `docs/w06b_run_log.md`.
