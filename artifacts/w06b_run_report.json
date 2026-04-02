@@ -1,7 +1,7 @@
 {
   "w": "W06B",
   "run_label": "run2",
-  "timestamp_utc": "2026-03-29T20:28:59.674912+00:00",
+  "timestamp_utc": "2026-04-02T17:03:19.728474+00:00",
   "python": "3.9.6",
   "platform": "macOS-26.3.1-arm64-arm-64bit",
   "project_root": "/Users/jhongarciabarrera/VS - Local/Github/datos-santiago/datos-uq",
@@ -10,12 +10,12 @@
   "stages": [
     {
       "mode": "silver",
-      "seconds": 0.004,
+      "seconds": 0.0036,
       "return_code": 0
     },
     {
       "mode": "dims",
-      "seconds": 0.0194,
+      "seconds": 0.0177,
       "return_code": 0
     },
     {
@@ -25,7 +25,7 @@
     },
     {
       "mode": "export",
-      "seconds": 0.0154,
+      "seconds": 0.015,
       "return_code": 0
     }
   ],
@@ -44,5 +44,5 @@
       "bytes": 131909
     }
   },
-  "total_seconds": 0.088
+  "total_seconds": 0.0864
 }

@@ -10,19 +10,19 @@ python3 src/w06b_runner_sqlite.py
 ## STDOUT (run 1)
 ```text
 raw_ps rows=6087
-silver: 0.0038s
-dims: 0.0202s
-gold: 0.0001s
-export: 0.0168s
+silver: 0.0078s
+dims: 0.026s
+gold: 0.0004s
+export: 0.0172s
 ```
 
 ## STDOUT (run 2)
 ```text
 raw_ps rows=6087
-silver: 0.004s
-dims: 0.0194s
+silver: 0.0036s
+dims: 0.0177s
 gold: 0.0001s
-export: 0.0154s
+export: 0.015s
 ```
 
 ## Interpretación

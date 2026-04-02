@@ -1,9 +1,9 @@
 run_label,stage,seconds,return_code
-run1,silver,0.0038,0
-run1,dims,0.0202,0
-run1,gold,0.0001,0
-run1,export,0.0168,0
-run2,silver,0.004,0
-run2,dims,0.0194,0
+run1,silver,0.0078,0
+run1,dims,0.026,0
+run1,gold,0.0004,0
+run1,export,0.0172,0
+run2,silver,0.0036,0
+run2,dims,0.0177,0
 run2,gold,0.0001,0
-run2,export,0.0154,0
+run2,export,0.015,0
