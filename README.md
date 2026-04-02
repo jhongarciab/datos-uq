@@ -10,11 +10,23 @@ W01 → Control de trazabilidad del dataset raw
 W02 → Validación explícita de completitud y nulos  
 W03 → Control de cardinalidad y JOINs seguros  
 W04 → Reglas mínimas Silver y control de calidad  
-W04A → Optimización de consultas (EXPLAIN y performance)  
+W04A → Performance/timing de consultas en SQLite  
 W05 → Modelo dimensional + salidas Gold  
 W06B → Runner secuencial con métricas por etapa, run log y comparación entre corridas
 
 Ver: [Decision Log](docs/decisions_log.md)
+
+## Runners (reproducibilidad)
+Ejecuta con `python3 -m ...` desde la raíz del repo:
+- W01: `src.w01_runner_raw_sqlite`
+- W02A: `src.w02a_sql_practice_runner`
+- W03: `src.w03_sql_joins_ctes_runner`
+- W04A (quality): `src.w04a_quality_report_runner`
+- W04B (silver): `src.w04b_silver_report_runner`
+- W04A (perf/timing): `src.w04a_perf_report_runner`
+- W05A: `src.w05a_pk_fk_checks_runner`
+- W05B: `src.w05b_gold_report_runner`
+- W06B (pipeline): `src.w06b_runner_sqlite`
 
 ## Estructura del repositorio
 ```text
