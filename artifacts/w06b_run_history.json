@@ -1,0 +1,110 @@
+{
+  "runs": [
+    {
+      "w": "W06B",
+      "run_label": "run1",
+      "timestamp_utc": "2026-04-02T17:03:19.520697+00:00",
+      "python": "3.9.6",
+      "platform": "macOS-26.3.1-arm64-arm-64bit",
+      "project_root": "/Users/jhongarciabarrera/VS - Local/Github/datos-santiago/datos-uq",
+      "db_path": "/Users/jhongarciabarrera/VS - Local/Github/datos-santiago/datos-uq/data/exoplanets_w06b.sqlite",
+      "raw_csv": "/Users/jhongarciabarrera/VS - Local/Github/datos-santiago/datos-uq/data/raw/pscomppars.csv",
+      "stages": [
+        {
+          "mode": "silver",
+          "seconds": 0.0078,
+          "return_code": 0
+        },
+        {
+          "mode": "dims",
+          "seconds": 0.026,
+          "return_code": 0
+        },
+        {
+          "mode": "gold",
+          "seconds": 0.0004,
+          "return_code": 0
+        },
+        {
+          "mode": "export",
+          "seconds": 0.0172,
+          "return_code": 0
+        }
+      ],
+      "counts": {
+        "silver_planet": 6081,
+        "dim_host_sk": 4537,
+        "fact_planet_sk": 6081
+      },
+      "artifacts": {
+        "gold_by_discoverymethod": {
+          "exists": true,
+          "bytes": 592
+        },
+        "gold_by_host": {
+          "exists": true,
+          "bytes": 131909
+        }
+      },
+      "total_seconds": 0.2315
+    },
+    {
+      "w": "W06B",
+      "run_label": "run2",
+      "timestamp_utc": "2026-04-02T17:03:19.728474+00:00",
+      "python": "3.9.6",
+      "platform": "macOS-26.3.1-arm64-arm-64bit",
+      "project_root": "/Users/jhongarciabarrera/VS - Local/Github/datos-santiago/datos-uq",
+      "db_path": "/Users/jhongarciabarrera/VS - Local/Github/datos-santiago/datos-uq/data/exoplanets_w06b.sqlite",
+      "raw_csv": "/Users/jhongarciabarrera/VS - Local/Github/datos-santiago/datos-uq/data/raw/pscomppars.csv",
+      "stages": [
+        {
+          "mode": "silver",
+          "seconds": 0.0036,
+          "return_code": 0
+        },
+        {
+          "mode": "dims",
+          "seconds": 0.0177,
+          "return_code": 0
+        },
+        {
+          "mode": "gold",
+          "seconds": 0.0001,
+          "return_code": 0
+        },
+        {
+          "mode": "export",
+          "seconds": 0.015,
+          "return_code": 0
+        }
+      ],
+      "counts": {
+        "silver_planet": 6081,
+        "dim_host_sk": 4537,
+        "fact_planet_sk": 6081
+      },
+      "artifacts": {
+        "gold_by_discoverymethod": {
+          "exists": true,
+          "bytes": 592
+        },
+        "gold_by_host": {
+          "exists": true,
+          "bytes": 131909
+        }
+      },
+      "total_seconds": 0.0864
+    }
+  ],
+  "stdouts": [
+    {
+      "run_label": "run1",
+      "stdout": "raw_ps rows=6087\nsilver: 0.0078s\ndims: 0.026s\ngold: 0.0004s\nexport: 0.0172s"
+    },
+    {
+      "run_label": "run2",
+      "stdout": "raw_ps rows=6087\nsilver: 0.0036s\ndims: 0.0177s\ngold: 0.0001s\nexport: 0.015s"
+    }
+  ]
+}

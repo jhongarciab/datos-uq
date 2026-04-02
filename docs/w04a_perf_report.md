@@ -11,59 +11,16 @@ GROUP BY discoverymethod
 ORDER BY n_planets DESC;
 ```
 
-### EXPLAIN (Q1)
-```text
-physical_plan | 
-┌───────────────────────────┐
-│          ORDER_BY         │
-│    ────────────────────   │
-│     count_star() DESC     │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│       HASH_GROUP_BY       │
-│    ────────────────────   │
-│         Groups: #0        │
-│                           │
-│        Aggregates:        │
-│        count_star()       │
-│                           │
-│        ~2,094 rows        │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│         PROJECTION        │
-│    ────────────────────   │
-│      discoverymethod      │
-│                           │
-│        ~2,311 rows        │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│         PROJECTION        │
-│    ────────────────────   │
-│             #0            │
-│                           │
-│        ~2,311 rows        │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│           FILTER          │
-│    ────────────────────   │
-│    (disc_year >= 2015)    │
-│                           │
-│        ~2,311 rows        │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│       READ_CSV_AUTO       │
-│    ────────────────────   │
-│         Function:         │
-│       READ_CSV_AUTO       │
-│                           │
-│        Projections:       │
-│      discoverymethod      │
-│         disc_year         │
-│                           │
-│        ~11,555 rows       │
-└───────────────────────────┘
+### Nota sobre engine
+Este repo estandariza los runners en **SQLite (stdlib)** usando la BD local:
 
-```
+- `data/exoplanets_w06b.sqlite`
+
+Por eso, en lugar de `EXPLAIN`/`EXPLAIN ANALYZE` de DuckDB, el entregable reproduce:
+- el **resultado** de la consulta (en JSON)
+- un **timing** simple (segundos) medido desde Python
+
+(El plan físico específico de DuckDB no se reproduce aquí.)
 
 ## Consulta 2 (JOIN + agregación)
 ```sql
@@ -88,175 +45,17 @@ GROUP BY f.discoverymethod
 ORDER BY n_planets DESC;
 ```
 
-### EXPLAIN (Q2)
-```text
-physical_plan |
-┌───────────────────────────┐
-│          ORDER_BY         │
-│    ────────────────────   │
-│     count_star() DESC     │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│       HASH_GROUP_BY       │
-│    ────────────────────   │
-│         Groups: #0        │
-│                           │
-│        Aggregates:        │
-│        count_star()       │
-│          avg(#1)          │
-│                           │
-│         ~410 rows         │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│         PROJECTION        │
-│    ────────────────────   │
-│      discoverymethod      │
-│             ra            │
-│                           │
-│         ~418 rows         │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│         HASH_JOIN         │
-│    ────────────────────   │
-│      Join Type: INNER     │
-│                           │
-│        Conditions:        ├──────────────┐
-│    hostname = hostname    │              │
-│                           │              │
-│         ~418 rows         │              │
-└─────────────┬─────────────┘              │
-┌─────────────┴─────────────┐┌─────────────┴─────────────┐
-│         PROJECTION        ││       HASH_GROUP_BY       │
-│    ────────────────────   ││    ────────────────────   │
-│             #1            ││         Groups: #0        │
-│             #2            ││    Aggregates: max(#1)    │
-│                           ││                           │
-│        ~2,311 rows        ││        ~2,094 rows        │
-└─────────────┬─────────────┘└─────────────┬─────────────┘
-┌─────────────┴─────────────┐┌─────────────┴─────────────┐
-│           FILTER          ││         PROJECTION        │
-│    ────────────────────   ││    ────────────────────   │
-│ ((disc_year >= 2015) AND  ││          hostname         │
-│   (pl_name IS NOT NULL))  ││             ra            │
-│                           ││                           │
-│        ~2,311 rows        ││        ~2,311 rows        │
-└─────────────┬─────────────┘└─────────────┬─────────────┘
-┌─────────────┴─────────────┐┌─────────────┴─────────────┐
-│       READ_CSV_AUTO       ││           FILTER          │
-│    ────────────────────   ││    ────────────────────   │
-│         Function:         ││   (hostname IS NOT NULL)  │
-│       READ_CSV_AUTO       ││                           │
-│                           ││                           │
-│        Projections:       ││                           │
-│          pl_name          ││                           │
-│          hostname         ││                           │
-│      discoverymethod      ││                           │
-│         disc_year         ││                           │
-│                           ││                           │
-│        ~11,555 rows       ││        ~2,311 rows        │
-└───────────────────────────┘└─────────────┬─────────────┘
-                             ┌─────────────┴─────────────┐
-                             │       READ_CSV_AUTO       │
-                             │    ────────────────────   │
-                             │         Function:         │
-                             │       READ_CSV_AUTO       │
-                             │                           │
-                             │        Projections:       │
-                             │          hostname         │
-                             │             ra            │
-                             │                           │
-                             │        ~11,555 rows       │
-                             └───────────────────────────┘
-
-```
+### Nota (Q2)
+De nuevo: el plan físico de DuckDB (`READ_CSV_AUTO`, `HASH_JOIN`, etc.) no aplica en SQLite.
+En este entregable se reporta el **resultado** y un **timing** medido desde Python.
 
 ## Conclusiones
 1) El costo principal está en el **SCAN** inicial sobre `raw_ps`: aunque el filtro de año ayuda, la lectura base sigue siendo el paso dominante. Mejora directa: proyectar menos columnas y materializar una tabla silver compacta para consultas repetidas.
 2) En la consulta con JOIN, la cardinalidad se mantiene controlada porque `dim_host` se fuerza a una fila por `hostname` (`GROUP BY hostname`). Para bajar costo, conviene filtrar por `disc_year` antes del JOIN y evitar columnas que no se usan en el resultado.
 
-## EXPLAIN ANALYZE (Q1)
-```text
-analyzed_plan | 
-┌─────────────────────────────────────┐
-│┌───────────────────────────────────┐│
-││    Query Profiling Information    ││
-│└───────────────────────────────────┘│
-└─────────────────────────────────────┘
-EXPLAIN ANALYZE  SELECT discoverymethod, COUNT(*) AS n_planets FROM raw_ps WHERE disc_year >= 2015 GROUP BY discoverymethod ORDER BY n_planets DESC; 
-┌────────────────────────────────────────────────┐
-│┌──────────────────────────────────────────────┐│
-││              Total Time: 0.0303s             ││
-│└──────────────────────────────────────────────┘│
-└────────────────────────────────────────────────┘
-┌───────────────────────────┐
-│           QUERY           │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│      EXPLAIN_ANALYZE      │
-│    ────────────────────   │
-│           0 rows          │
-│          (0.00s)          │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│          ORDER_BY         │
-│    ────────────────────   │
-│     count_star() DESC     │
-│                           │
-│          11 rows          │
-│          (0.00s)          │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│       HASH_GROUP_BY       │
-│    ────────────────────   │
-│         Groups: #0        │
-│                           │
-│        Aggregates:        │
-│        count_star()       │
-│                           │
-│          11 rows          │
-│          (0.00s)          │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│         PROJECTION        │
-│    ────────────────────   │
-│      discoverymethod      │
-│                           │
-│         4,307 rows        │
-│          (0.00s)          │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│         PROJECTION        │
-│    ────────────────────   │
-│             #0            │
-│                           │
-│         4,307 rows        │
-│          (0.00s)          │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│           FILTER          │
-│    ────────────────────   │
-│    (disc_year >= 2015)    │
-│                           │
-│         4,307 rows        │
-│          (0.00s)          │
-└─────────────┬─────────────┘
-┌─────────────┴─────────────┐
-│         TABLE_SCAN        │
-│    ────────────────────   │
-│         Function:         │
-│       READ_CSV_AUTO       │
-│                           │
-│        Projections:       │
-│      discoverymethod      │
-│         disc_year         │
-│                           │
-│    Total Files Read: 1    │
-│                           │
-│         6,087 rows        │
-│          (0.00s)          │
-└───────────────────────────┘
-
-```
+## Timing (Q1)
+El runner `src/w04a_perf_report_runner.py` imprime `Timing(Q1)` medido con `time.perf_counter()`.
+Ese valor reemplaza el `Total Time` que antes venía de `EXPLAIN ANALYZE` en DuckDB.
 
 ## Reflexión (bitácora)
 - Lo más difícil de interpretar fue mapear rápidamente dónde termina el SCAN y empieza el costo real de agregación.
