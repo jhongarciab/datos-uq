@@ -1,0 +1,43 @@
+{
+  "w": "W11",
+  "queries": {
+    "q1": {
+      "name": "Métodos por década reciente",
+      "budget_seconds": 0.02,
+      "baseline_seconds": 0.0037,
+      "after_seconds": 0.0011,
+      "within_budget_after": true,
+      "result_match": true,
+      "before_rows_sha256": "b4b843cea337a0c44fcf74f86d7dae3d0b03aef739fd67477a358e4daa18ce29",
+      "after_rows_sha256": "b4b843cea337a0c44fcf74f86d7dae3d0b03aef739fd67477a358e4daa18ce29"
+    },
+    "q2": {
+      "name": "Hosts con 3+ planetas por década reciente",
+      "budget_seconds": 0.02,
+      "baseline_seconds": 0.0012,
+      "after_seconds": 0.0009,
+      "within_budget_after": true,
+      "result_match": true,
+      "before_rows_sha256": "4d4e0da76026587b1807bfc9b84ede36f4e5693b9a9ba74b319e9b3e8bd388b3",
+      "after_rows_sha256": "4d4e0da76026587b1807bfc9b84ede36f4e5693b9a9ba74b319e9b3e8bd388b3"
+    }
+  },
+  "anti_patterns": [
+    "Reagrupar desde silver_planet_v3 en cada consulta crítica en lugar de consumir una mart agregada persistente.",
+    "Repetir filtros y agregaciones pesadas en caliente para dashboards/consultas frecuentes, aumentando costo y variabilidad de tiempo."
+  ],
+  "rewrites": [
+    "Materializar gold_mart_method_era para desacoplar la agregación por método+década del consumo analítico.",
+    "Materializar gold_mart_host_era y filtrar `n_planets >= 3` sobre la mart en vez de recalcular el GROUP BY completo cada vez."
+  ],
+  "gold_marts": {
+    "method_era": "artifacts/w11_gold_mart_method_era.csv",
+    "host_era": "artifacts/w11_gold_mart_host_era.csv"
+  },
+  "artifacts": {
+    "q1_before": "artifacts/w11_q1_explain_before.txt",
+    "q1_after": "artifacts/w11_q1_explain_after.txt",
+    "q2_before": "artifacts/w11_q2_explain_before.txt",
+    "q2_after": "artifacts/w11_q2_explain_after.txt"
+  }
+}

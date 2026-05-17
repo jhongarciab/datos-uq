@@ -15,7 +15,8 @@ W05 → Modelo dimensional + salidas Gold
 W06B → Runner secuencial con métricas por etapa, run log y comparación entre corridas  
 W08 → Limpieza Raw→Silver v2 + ejemplo Many-to-Many con evidencia de PK/FK  
 W09 → Limpieza avanzada con canonización explícita + quality gates persistentes  
-W10 → Parquet particionado por década + evidencia de pruning con DuckDB
+W10 → Parquet particionado por década + evidencia de pruning con DuckDB  
+W11 → Tuning de queries críticas + gold marts y validación before/after
 
 Ver: [Decision Log](docs/decisions_log.md)
 
@@ -33,6 +34,7 @@ Ejecuta con `python3 -m ...` desde la raíz del repo:
 - W08: `src.w08_report_runner`
 - W09: `src.w09_assignment_runner`
 - W10: `src.w10_partition_runner`
+- W11: `src.w11_perf_runner`
 
 ## Estructura del repositorio
 ```text
@@ -58,7 +60,16 @@ datos-uq/
 │   ├── w10_evidence.json          # Evidencia integrada del entregable W10
 │   ├── w10_file_inventory.csv     # Inventario físico de archivos parquet
 │   ├── w10_partition_summary.csv  # Conteos por partición
-│   └── w10b_explain_analyze_pruning.txt # Evidencia de pruning
+│   ├── w10b_explain_analyze_pruning.txt # Evidencia de pruning
+│   ├── w11_evidence.json          # Evidencia integrada del entregable W11
+│   ├── w11_q1_explain_before.txt  # EXPLAIN ANALYZE query 1 baseline
+│   ├── w11_q1_explain_after.txt   # EXPLAIN ANALYZE query 1 optimizada
+│   ├── w11_q2_explain_before.txt  # EXPLAIN ANALYZE query 2 baseline
+│   ├── w11_q2_explain_after.txt   # EXPLAIN ANALYZE query 2 optimizada
+│   ├── w11_gold_mart_method_era.csv # Mart agregada por método+década
+│   ├── w11_gold_mart_host_era.csv # Mart agregada por host+década
+│   ├── w11_q1_results_after.csv   # Resultado final query 1
+│   └── w11_q2_results_after.csv   # Resultado final query 2
 │
 ├── data/
 │   └── raw/
@@ -83,7 +94,8 @@ datos-uq/
 │   ├── w08_report.md
 │   ├── w09_report.md
 │   ├── w09_quality.md
-│   └── w10_report.md
+│   ├── w10_report.md
+│   └── w11_report.md
 │
 ├── .gitignore
 └── README.md     

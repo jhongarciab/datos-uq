@@ -79,3 +79,12 @@
 - Decisión: Usar el filtro `disc_era = '2010s'` como prueba de pruning.
 - Razón: Es la partición con mayor volumen, así que deja evidencia clara de que DuckDB reduce lectura física de `4` archivos totales a `1` archivo leído cuando la columna de partición coincide con el predicado.
 - Evidencia: `artifacts/w10b_explain_analyze_pruning.txt`.
+
+### W11
+- Fecha: 2026-05-17
+- Decisión: Resolver las dos consultas críticas de consumo frecuente a través de marts agregadas (`gold_mart_method_era` y `gold_mart_host_era`) en vez de recalcular `GROUP BY` completos desde silver en cada ejecución.
+- Razón: Aunque el dataset actual es pequeño, el patrón de consumo repetido justifica desacoplar cómputo y lectura; esto mejora tiempo y deja un camino claro para crecer sin duplicar costo analítico.
+- Evidencia: `docs/w11_report.md`, `artifacts/w11_q1_explain_before.txt`, `artifacts/w11_q1_explain_after.txt`, `artifacts/w11_q2_explain_before.txt` y `artifacts/w11_q2_explain_after.txt`.
+- Decisión: Fijar budgets simples de `0.020s` para ambas queries en esta escala.
+- Razón: El objetivo no es micro-optimizar, sino contar con una barrera operativa verificable que permita detectar regresiones cuando cambie el pipeline o aumente la complejidad.
+- Evidencia: `artifacts/w11_evidence.json`.

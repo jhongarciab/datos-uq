@@ -1,0 +1,134 @@
+┌─────────────────────────────────────┐
+│┌───────────────────────────────────┐│
+││    Query Profiling Information    ││
+│└───────────────────────────────────┘│
+└─────────────────────────────────────┘
+EXPLAIN ANALYZE SELECT   disc_era,   discoverymethod_canon,   COUNT(*) AS n_planets,   ROUND(AVG(pl_rade), 3) AS avg_pl_rade,   ROUND(AVG(pl_bmasse), 3) AS avg_pl_bmasse FROM silver_planet_v3 WHERE disc_year_bad = FALSE   AND disc_era IN ('2010s', '2020s') GROUP BY disc_era, discoverymethod_canon ORDER BY disc_era, n_planets DESC, discoverymethod_canon ASC LIMIT 20
+┌────────────────────────────────────────────────┐
+│┌──────────────────────────────────────────────┐│
+││              Total Time: 0.0037s             ││
+│└──────────────────────────────────────────────┘│
+└────────────────────────────────────────────────┘
+┌───────────────────────────┐
+│           QUERY           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│      EXPLAIN_ANALYZE      │
+│    ────────────────────   │
+│           0 rows          │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           TOP_N           │
+│    ────────────────────   │
+│          Top: 20          │
+│                           │
+│         Order By:         │
+│    exoplanets_w11.main    │
+│ .silver_planet_v3.disc_era│
+│             ASC           │
+│     count_star() DESC     │
+│    exoplanets_w11.main    │
+│     .silver_planet_v3     │
+│ .discoverymethod_canon ASC│
+│                           │
+│          20 rows          │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│          disc_era         │
+│   discoverymethod_canon   │
+│         n_planets         │
+│        avg_pl_rade        │
+│       avg_pl_bmasse       │
+│                           │
+│          20 rows          │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_decompress_strin│
+│           g(#0)           │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│                           │
+│          20 rows          │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│       HASH_GROUP_BY       │
+│    ────────────────────   │
+│          Groups:          │
+│             #0            │
+│             #1            │
+│                           │
+│        Aggregates:        │
+│        count_star()       │
+│          avg(#2)          │
+│          avg(#3)          │
+│                           │
+│          20 rows          │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│          disc_era         │
+│   discoverymethod_canon   │
+│          pl_rade          │
+│         pl_bmasse         │
+│                           │
+│         5,676 rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│__internal_compress_string_│
+│        ubigint(#0)        │
+│             #1            │
+│             #2            │
+│             #3            │
+│                           │
+│         5,676 rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           FILTER          │
+│    ────────────────────   │
+│ ((disc_era = '2010s') OR  │
+│   (disc_era = '2020s'))   │
+│                           │
+│         5,676 rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         TABLE_SCAN        │
+│    ────────────────────   │
+│           Table:          │
+│      silver_planet_v3     │
+│                           │
+│   Type: Sequential Scan   │
+│                           │
+│        Projections:       │
+│          disc_era         │
+│   discoverymethod_canon   │
+│          pl_rade          │
+│         pl_bmasse         │
+│                           │
+│          Filters:         │
+│    disc_year_bad=false    │
+│  optional: disc_era IN (  │
+│   '2010s', '2020s') AND   │
+│  optional: Dynamic Filter │
+│         (disc_era)        │
+│                           │
+│         6,086 rows        │
+│          (0.00s)          │
+└───────────────────────────┘
+
