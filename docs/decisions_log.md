@@ -61,3 +61,12 @@
 - Decisión: Modelar el ejemplo many-to-many con tabla puente y restricciones reales (PK compuesta + FK activadas), no solo como diagrama.
 - Razón: El entregable pide evidencia de integridad; ejecutar inserciones inválidas y el chequeo `HAVING COUNT(*)>1` demuestra que la cardinalidad queda protegida de verdad.
 - Evidencia: `artifacts/w08_many_to_many_ddl.sql` y `artifacts/w08_evidence.json`.
+
+### W09
+- Fecha: 2026-05-17
+- Decisión: Separar la canonización avanzada de `discoverymethod` en una tabla `method_synonyms(raw_norm, canonical)` y propagar el resultado como `discoverymethod_canon` en `silver_planet_v3`.
+- Razón: Esto vuelve auditable la limpieza, permite extender sinónimos sin reescribir SQL analítico y deja visible cuándo una fila cae en fallback.
+- Evidencia: `docs/w09_report.md`, `artifacts/w09_evidence.json` y `artifacts/w09_method_canon_counts.csv`.
+- Decisión: Materializar `quality_events` como tabla persistente con umbrales explícitos en vez de dejar checks sueltos en notebooks.
+- Razón: Un registro tabular de gates facilita reruns, comparación entre corridas y automatización posterior de alertas o validaciones en pipeline.
+- Evidencia: `docs/w09_quality.md` y `artifacts/w09_quality_events.csv`.

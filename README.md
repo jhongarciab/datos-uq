@@ -13,7 +13,8 @@ W04 → Reglas mínimas Silver y control de calidad
 W04A → Performance/timing de consultas en SQLite  
 W05 → Modelo dimensional + salidas Gold  
 W06B → Runner secuencial con métricas por etapa, run log y comparación entre corridas  
-W08 → Limpieza Raw→Silver v2 + ejemplo Many-to-Many con evidencia de PK/FK
+W08 → Limpieza Raw→Silver v2 + ejemplo Many-to-Many con evidencia de PK/FK  
+W09 → Limpieza avanzada con canonización explícita + quality gates persistentes
 
 Ver: [Decision Log](docs/decisions_log.md)
 
@@ -29,6 +30,7 @@ Ejecuta con `python3 -m ...` desde la raíz del repo:
 - W05B: `src.w05b_gold_report_runner`
 - W06B (pipeline): `src.w06b_runner_sqlite`
 - W08: `src.w08_report_runner`
+- W09: `src.w09_assignment_runner`
 
 ## Estructura del repositorio
 ```text
@@ -46,7 +48,11 @@ datos-uq/
 │   ├── w08_method_counts.csv      # Frecuencias por método canónico
 │   ├── w08_planets_per_method.csv # Respuesta Q1 del esquema M:N
 │   ├── w08_methods_per_planet.csv # Respuesta Q2 del esquema M:N
-│   └── w08_many_to_many_ddl.sql   # DDL con PK/FK del esquema toy
+│   ├── w08_many_to_many_ddl.sql   # DDL con PK/FK del esquema toy
+│   ├── w09_evidence.json          # Evidencia integrada del entregable W09
+│   ├── w09_quality_events.csv     # Quality gates materializados
+│   ├── w09_method_canon_counts.csv# Frecuencias por método canonizado
+│   └── w09_disc_era_counts.csv    # Conteos por década de descubrimiento
 │
 ├── data/
 │   └── raw/
@@ -68,7 +74,9 @@ datos-uq/
 │   ├── w05a_evidence.md
 │   ├── w05b_gold_report.md
 │   ├── w06b_run_log.md
-│   └── w08_report.md
+│   ├── w08_report.md
+│   ├── w09_report.md
+│   └── w09_quality.md
 │
 ├── .gitignore
 └── README.md     

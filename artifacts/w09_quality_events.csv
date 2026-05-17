@@ -1,0 +1,5 @@
+check_name,status,metric_value,details
+disc_year_bad_rows,PASS,1.0,Se tolera 1 fila mala para reflejar el único disc_year nulo del dataset
+discoverymethod_canon_nulls,PASS,0.0,discoverymethod_canon debe resolverse por synonyms o fallback
+hostname_canon_nulls,PASS,0.0,hostname_canon debe quedar completo tras LOWER/TRIM
+method_fallback_rows,PASS,0.0,Con synonyms completos no deberían quedar filas apoyadas solo en fallback

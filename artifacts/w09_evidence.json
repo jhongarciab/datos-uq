@@ -1,0 +1,150 @@
+{
+  "w": "W09",
+  "silver_count": {
+    "n_rows": 6087
+  },
+  "disc_year_bad": {
+    "disc_year_bad": 1
+  },
+  "method_synonyms": [
+    {
+      "raw_norm": "astrometry",
+      "canonical": "astrometry"
+    },
+    {
+      "raw_norm": "disk kinematics",
+      "canonical": "disk_kinematics"
+    },
+    {
+      "raw_norm": "eclipse timing variations",
+      "canonical": "eclipse_timing_variations"
+    },
+    {
+      "raw_norm": "imaging",
+      "canonical": "imaging"
+    },
+    {
+      "raw_norm": "microlensing",
+      "canonical": "microlensing"
+    },
+    {
+      "raw_norm": "orbital brightness modulation",
+      "canonical": "orbital_brightness_modulation"
+    },
+    {
+      "raw_norm": "pulsar timing",
+      "canonical": "pulsar_timing"
+    },
+    {
+      "raw_norm": "pulsation timing variations",
+      "canonical": "pulsation_timing_variations"
+    },
+    {
+      "raw_norm": "radial velocity",
+      "canonical": "radial_velocity"
+    },
+    {
+      "raw_norm": "transit",
+      "canonical": "transit"
+    },
+    {
+      "raw_norm": "transit timing variations",
+      "canonical": "transit_timing_variations"
+    }
+  ],
+  "method_counts_top10": [
+    {
+      "discoverymethod_canon": "transit",
+      "n": 4488
+    },
+    {
+      "discoverymethod_canon": "radial_velocity",
+      "n": 1161
+    },
+    {
+      "discoverymethod_canon": "microlensing",
+      "n": 265
+    },
+    {
+      "discoverymethod_canon": "imaging",
+      "n": 91
+    },
+    {
+      "discoverymethod_canon": "transit_timing_variations",
+      "n": 39
+    },
+    {
+      "discoverymethod_canon": "eclipse_timing_variations",
+      "n": 17
+    },
+    {
+      "discoverymethod_canon": "orbital_brightness_modulation",
+      "n": 9
+    },
+    {
+      "discoverymethod_canon": "pulsar_timing",
+      "n": 8
+    },
+    {
+      "discoverymethod_canon": "astrometry",
+      "n": 6
+    },
+    {
+      "discoverymethod_canon": "pulsation_timing_variations",
+      "n": 2
+    }
+  ],
+  "disc_era_counts": [
+    {
+      "disc_era": "1990s",
+      "n": 30
+    },
+    {
+      "disc_era": "2000s",
+      "n": 380
+    },
+    {
+      "disc_era": "2010s",
+      "n": 3683
+    },
+    {
+      "disc_era": "2020s",
+      "n": 1993
+    }
+  ],
+  "quality_events": [
+    {
+      "ts_utc": "2026-05-17T15:15:50.120104+00:00",
+      "check_name": "hostname_canon_nulls",
+      "status": "PASS",
+      "metric_value": 0.0,
+      "details": "hostname_canon debe quedar completo tras LOWER/TRIM"
+    },
+    {
+      "ts_utc": "2026-05-17T15:15:50.120104+00:00",
+      "check_name": "discoverymethod_canon_nulls",
+      "status": "PASS",
+      "metric_value": 0.0,
+      "details": "discoverymethod_canon debe resolverse por synonyms o fallback"
+    },
+    {
+      "ts_utc": "2026-05-17T15:15:50.120104+00:00",
+      "check_name": "disc_year_bad_rows",
+      "status": "PASS",
+      "metric_value": 1.0,
+      "details": "Se tolera 1 fila mala para reflejar el único disc_year nulo del dataset"
+    },
+    {
+      "ts_utc": "2026-05-17T15:15:50.120104+00:00",
+      "check_name": "method_fallback_rows",
+      "status": "PASS",
+      "metric_value": 0.0,
+      "details": "Con synonyms completos no deberían quedar filas apoyadas solo en fallback"
+    }
+  ],
+  "artifacts": {
+    "quality_csv": "artifacts/w09_quality_events.csv",
+    "method_counts_csv": "artifacts/w09_method_canon_counts.csv",
+    "disc_era_csv": "artifacts/w09_disc_era_counts.csv"
+  }
+}
