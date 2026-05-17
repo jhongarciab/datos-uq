@@ -1,0 +1,54 @@
+{
+  "w": "W10",
+  "partition_column": "disc_era",
+  "filter_used": "disc_era = '2010s'",
+  "total_files": 4,
+  "filtered_files": 1,
+  "total_bytes": 219237,
+  "filtered_bytes": 123599,
+  "partition_summary": [
+    {
+      "disc_era": "1990s",
+      "n_rows": 30
+    },
+    {
+      "disc_era": "2000s",
+      "n_rows": 380
+    },
+    {
+      "disc_era": "2010s",
+      "n_rows": 3683
+    },
+    {
+      "disc_era": "2020s",
+      "n_rows": 1993
+    }
+  ],
+  "files": [
+    {
+      "path": "data/partitioned/w10_disc_era/disc_era=1990s/data_0.parquet",
+      "partition": "1990s",
+      "bytes": 2681
+    },
+    {
+      "path": "data/partitioned/w10_disc_era/disc_era=2000s/data_0.parquet",
+      "partition": "2000s",
+      "bytes": 16426
+    },
+    {
+      "path": "data/partitioned/w10_disc_era/disc_era=2010s/data_0.parquet",
+      "partition": "2010s",
+      "bytes": 123599
+    },
+    {
+      "path": "data/partitioned/w10_disc_era/disc_era=2020s/data_0.parquet",
+      "partition": "2020s",
+      "bytes": 76531
+    }
+  ],
+  "artifacts": {
+    "file_inventory": "artifacts/w10_file_inventory.csv",
+    "partition_summary": "artifacts/w10_partition_summary.csv",
+    "explain_analyze": "artifacts/w10b_explain_analyze_pruning.txt"
+  }
+}

@@ -70,3 +70,12 @@
 - Decisión: Materializar `quality_events` como tabla persistente con umbrales explícitos en vez de dejar checks sueltos en notebooks.
 - Razón: Un registro tabular de gates facilita reruns, comparación entre corridas y automatización posterior de alertas o validaciones en pipeline.
 - Evidencia: `docs/w09_quality.md` y `artifacts/w09_quality_events.csv`.
+
+### W10
+- Fecha: 2026-05-17
+- Decisión: Particionar el dataset W10 por `disc_era` y no por `disc_year_int` ni por `discoverymethod_canon`.
+- Razón: `disc_era` mantiene una cardinalidad baja, es interpretable y permite demostrar pruning sin generar una explosión de carpetas; particionar por año o por combinaciones más finas elevaría el riesgo de small files.
+- Evidencia: `docs/w10_report.md`, `artifacts/w10_partition_summary.csv` y `artifacts/w10_file_inventory.csv`.
+- Decisión: Usar el filtro `disc_era = '2010s'` como prueba de pruning.
+- Razón: Es la partición con mayor volumen, así que deja evidencia clara de que DuckDB reduce lectura física de `4` archivos totales a `1` archivo leído cuando la columna de partición coincide con el predicado.
+- Evidencia: `artifacts/w10b_explain_analyze_pruning.txt`.

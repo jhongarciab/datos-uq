@@ -14,7 +14,8 @@ W04A → Performance/timing de consultas en SQLite
 W05 → Modelo dimensional + salidas Gold  
 W06B → Runner secuencial con métricas por etapa, run log y comparación entre corridas  
 W08 → Limpieza Raw→Silver v2 + ejemplo Many-to-Many con evidencia de PK/FK  
-W09 → Limpieza avanzada con canonización explícita + quality gates persistentes
+W09 → Limpieza avanzada con canonización explícita + quality gates persistentes  
+W10 → Parquet particionado por década + evidencia de pruning con DuckDB
 
 Ver: [Decision Log](docs/decisions_log.md)
 
@@ -31,6 +32,7 @@ Ejecuta con `python3 -m ...` desde la raíz del repo:
 - W06B (pipeline): `src.w06b_runner_sqlite`
 - W08: `src.w08_report_runner`
 - W09: `src.w09_assignment_runner`
+- W10: `src.w10_partition_runner`
 
 ## Estructura del repositorio
 ```text
@@ -52,7 +54,11 @@ datos-uq/
 │   ├── w09_evidence.json          # Evidencia integrada del entregable W09
 │   ├── w09_quality_events.csv     # Quality gates materializados
 │   ├── w09_method_canon_counts.csv# Frecuencias por método canonizado
-│   └── w09_disc_era_counts.csv    # Conteos por década de descubrimiento
+│   ├── w09_disc_era_counts.csv    # Conteos por década de descubrimiento
+│   ├── w10_evidence.json          # Evidencia integrada del entregable W10
+│   ├── w10_file_inventory.csv     # Inventario físico de archivos parquet
+│   ├── w10_partition_summary.csv  # Conteos por partición
+│   └── w10b_explain_analyze_pruning.txt # Evidencia de pruning
 │
 ├── data/
 │   └── raw/
@@ -76,7 +82,8 @@ datos-uq/
 │   ├── w06b_run_log.md
 │   ├── w08_report.md
 │   ├── w09_report.md
-│   └── w09_quality.md
+│   ├── w09_quality.md
+│   └── w10_report.md
 │
 ├── .gitignore
 └── README.md     

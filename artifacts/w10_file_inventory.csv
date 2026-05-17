@@ -1,0 +1,5 @@
+path,partition,bytes
+data/partitioned/w10_disc_era/disc_era=1990s/data_0.parquet,1990s,2681
+data/partitioned/w10_disc_era/disc_era=2000s/data_0.parquet,2000s,16426
+data/partitioned/w10_disc_era/disc_era=2010s/data_0.parquet,2010s,123599
+data/partitioned/w10_disc_era/disc_era=2020s/data_0.parquet,2020s,76531
