@@ -52,3 +52,12 @@
 - Decisión: Mantener un runner secuencial en cuatro etapas (`silver`, `dims`, `gold`, `export`) y usar como umbral operativo que la etapa `dims` permanezca por debajo de `0.03s` en este dataset.
 - Razón: `dims` concentra el mayor costo del flujo porque reconstruye dimensiones, facts y la tabla con surrogate key; fijar un umbral simple permite detectar rápido degradaciones de performance sin complicar el entregable.
 - Evidencia: `artifacts/w06b_stage_timings.csv` (run1 `dims=0.0202s`, run2 `dims=0.0194s`) y `docs/w06b_run_log.md`.
+
+### W08
+- Fecha: 2026-05-17
+- Decisión: Canonizar `discoverymethod` mediante una tabla `method_map` explícita y persistir además una columna `disc_era` en `silver_planet_v2`.
+- Razón: La tabla de mapeo evita depender de normalizaciones implícitas dispersas en queries, mientras `disc_era` deja lista una segmentación temporal reproducible para análisis posteriores.
+- Evidencia: `docs/w08_report.md`, `artifacts/w08_evidence.json` y `artifacts/w08_method_counts.csv`.
+- Decisión: Modelar el ejemplo many-to-many con tabla puente y restricciones reales (PK compuesta + FK activadas), no solo como diagrama.
+- Razón: El entregable pide evidencia de integridad; ejecutar inserciones inválidas y el chequeo `HAVING COUNT(*)>1` demuestra que la cardinalidad queda protegida de verdad.
+- Evidencia: `artifacts/w08_many_to_many_ddl.sql` y `artifacts/w08_evidence.json`.
